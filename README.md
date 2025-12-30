@@ -1,11 +1,45 @@
-<div align="center">
+# Guardian Veil - Security & Compliance AI Assistant
 
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
+Guardian Veil is an enterprise-grade LLM application designed to act as a proactive shield against data leaks. It scrutinizes user queries in real-time for PII, secrets, and internal data.
 
-  <h1>Built with AI Studio</h2>
+## Features
+- **PII Redaction & Detection**: Real-time monitoring for SSNs, Credit Cards, and Passwords.
+- **Security-First Architecture**: Powered by Gemini 3 Pro with strict system instructions.
+- **Datadog Integration**: Instrumented for observability, tracking security blocks and latency.
+- **Traffic Generator**: Included script to simulate security threats and validate detection rules.
 
-  <p>The fastest path from prompt to production with Gemini.</p>
+## Deployment Instructions
 
-  <a href="https://aistudio.google.com/apps">Start building</a>
+### Prerequisites
+- Node.js (v18+)
+- A Google Cloud Project with Gemini API enabled.
+- Datadog Account (for monitoring).
 
-</div>
+### Installation
+1. Clone the repository.
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Set your environment variables:
+   ```bash
+   export API_KEY='your-gemini-api-key'
+   ```
+4. Start the application:
+   ```bash
+   npm start
+   ```
+
+### Running the Traffic Generator
+To test the detection rules and generate monitoring data:
+```bash
+node scripts/traffic_generator.js
+```
+
+## Datadog Configuration
+The `datadog_config.json` file in the root directory contains:
+- **Dashboards**: Visualization of "Safe vs Blocked" traffic.
+- **Monitors**: Alerts for spikes in sensitive data detection.
+- **SLOs**: Ensuring 99.9% uptime for the security gatekeeper.
+
+**Organization Name:** GuardianVeil-SecOps-Global

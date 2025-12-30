@@ -1,0 +1,43 @@
+{
+  "organization": "GuardianVeil-SecOps-Global",
+  "dashboards": [
+    {
+      "title": "Guardian Veil Security Overview",
+      "widgets": [
+        {
+          "definition": {
+            "title": "Total Blocked Requests",
+            "type": "timeseries",
+            "requests": [{"q": "sum:guardian_veil.security.blocked{*}"}]
+          }
+        },
+        {
+          "definition": {
+            "title": "Detection Latency",
+            "type": "query_value",
+            "requests": [{"q": "avg:guardian_veil.api.latency{*}"}]
+          }
+        }
+      ]
+    }
+  ],
+  "monitors": [
+    {
+      "name": "High PII Detection Volume",
+      "type": "metric alert",
+      "query": "avg(last_5m):sum:guardian_veil.security.blocked{type:pii} > 10",
+      "message": "Immediate attention required: Multiple PII leaks detected in the last 5 minutes. @security-team"
+    }
+  ],
+  "slos": [
+    {
+      "name": "Security Processing Latency",
+      "type": "metric",
+      "thresholds": [{"target": 99.9, "timeframe": "7d"}],
+      "query": {
+        "numerator": "count:guardian_veil.api.latency{latency < 2000}",
+        "denominator": "count:guardian_veil.api.latency{*}"
+      }
+    }
+  ]
+}
